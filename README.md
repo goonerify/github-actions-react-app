@@ -1,8 +1,63 @@
-# Getting Started with Create React App
+# The Complete GitHub Actions & Workflows Guide
+
+This project is part of **Section 5: Creating a CI/CD Workflow to Automate Testing and Deployment**
+
+## **CREATE THE APP**
+
+Uninstall any previously installed version of create-react-app
+
+`npm uninstall -g create-react-app`
+
+Create a boiler-plate react app
+
+`npx create-react-app react-app --use-npm`
+
+## **DEPLOY WITH SURGE**
+
+[Surge](https://surge.sh/) is a utility for quickly deploying static applications.
+
+1. First build the app
+
+   `npm run build`
+
+2. Run the surge command from your project's base directory
+
+   `npx surge`
+
+3. Select the build folder as the one to deploy
+4. Paste the generated URL in a browser to view the hosted application running in a live surge server
+
+## **PRETTIER**
+
+https://prettier.io/
+
+### **INSTALL IN PROJECT DIRECTORY**
+
+`npm install --save-dev --save-exact prettier`
+
+### **GENERATE LINTING CONFIG FOR PRETTIER**
+
+Use the prettier [playground](https://prettier.io/playground/) to generate and copy the config into a .prettierrc file
+
+Create a .prettierignore file
+
+### **VALIDATE STYLE**
+
+`npx prettier --check "**/*.js"`
+
+### **ENFORCE STYLE**
+
+`npx prettier --write "**/*.js"`
+
+## **Run Tests for continuous integration**
+
+`CI=true npm run test -- --coverage`
+
+<!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## **Available Scripts**
 
 In the project directory, you can run:
 
@@ -39,7 +94,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## **Learn More**
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
@@ -67,4 +122,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
