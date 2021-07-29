@@ -1,0 +1,4 @@
+* @goonerify
+*.js @goonerify
+*.yml @goonerify
+/public/ @goonerify
