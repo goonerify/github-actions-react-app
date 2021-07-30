@@ -16,7 +16,7 @@ jobs:
         run: |
           ls -la
       - name: Decrypt Secret File
-        run: gpg --quiet --batch --yes 
+        run: gpg --quiet --batch --yes
           --decrypt --passphrase="$GNU_PG_PASSPHRASE" --output .env .env.gpg
       - name: list files after decrypt
         run: |

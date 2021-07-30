@@ -29,17 +29,15 @@ Create a boiler-plate react app
 
 **Retrieve the generated URL**
 
-   `npx surge list`
+`npx surge list`
 
 **Generate a token with Surge**
 
-   `npx surge token`
+`npx surge token`
 
 **Retrieve your surge user/email**
 
-   `npx surge whoami`
-
-
+`npx surge whoami`
 
 ## **PRETTIER**
 
