@@ -1,4 +1,4 @@
 * @goonerify
 *.js @goonerify
-*.yml @goonerify
+*.yml @leslie-test
 /public/ @goonerify
