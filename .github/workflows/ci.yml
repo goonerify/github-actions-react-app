@@ -7,6 +7,8 @@ on:
 
 jobs:
   build:
+    env:
+      GNU_PG_PASSPHRASE: ${{ secrets.GNU_PG_PASSPHRASE }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,8 +19,6 @@ jobs:
       - name: Decrypt Secret File
         run: gpg --quiet --batch --yes 
           --decrypt --passphrase="$GNU_PG_PASSPHRASE" --output $HOME/.env .env.gpg
-        env:
-          GNU_PG_PASSPHRASE: secrets.GNU_PG_PASSPHRASE
       - name: Dotenv Action
         uses: falti/dotenv-action@v0.2.6
       - name: Use NodeJS
