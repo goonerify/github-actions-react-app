@@ -20,6 +20,7 @@ jobs:
           --decrypt --passphrase="$GNU_PG_PASSPHRASE" --output $HOME/.env .env.gpg
       - name: list files after decrypt
         run: |
+          echo $HOME
           pwd
           ls -la
       - name: Dotenv Action
