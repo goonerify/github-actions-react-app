@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: list files
+        run: |
+          ls -la
+          echo GNU_PG_PASSPHRASE is "$GNU_PG_PASSPHRASE"
       - name: Decrypt Secret File
         run: gpg --quiet --batch --yes 
           --decrypt --passphrase="$GNU_PG_PASSPHRASE" --output $HOME/.env .env.gpg
