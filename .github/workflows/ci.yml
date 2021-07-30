@@ -1,0 +1,44 @@
+name: CI
+on:
+  pull_request:
+    branches: [develop]
+  push:
+    branches: [develop]
+
+jobs:
+  build:
+    env:
+      GNU_PG_PASSPHRASE: ${{ secrets.GNU_PG_PASSPHRASE }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: list files
+        run: |
+          ls -la
+      - name: Decrypt Secret File
+        run: gpg --quiet --batch --yes
+          --decrypt --passphrase="$GNU_PG_PASSPHRASE" --output .env .env.gpg
+      - name: list files after decrypt
+        run: |
+          pwd
+          ls -la
+      - name: Dotenv Action
+        uses: falti/dotenv-action@v0.2.6
+      - name: Use NodeJS
+        uses: actions/setup-node@v2.3.0
+        with:
+          node-version: 14.x
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm test -- --coverage
+        env:
+          CI: true
+      - name: Build Project
+        if: github.event_name == 'push'
+        run: npm run build
+      - name: Deploy to Staging
+        if: github.event_name == 'push'
+        run: npx surge --project ./build --domain $SURGE_DOMAIN
+        env:
+          SURGE_LOGIN: $SURGE_LOGIN
+          SURGE_TOKEN: $SURGE_TOKEN

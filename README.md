@@ -27,6 +27,18 @@ Create a boiler-plate react app
 3. Select the build folder as the one to deploy
 4. Paste the generated URL in a browser to view the hosted application running in a live surge server
 
+**Retrieve the generated URL**
+
+`npx surge list`
+
+**Generate a token with Surge**
+
+`npx surge token`
+
+**Retrieve your surge user/email**
+
+`npx surge whoami`
+
 ## **PRETTIER**
 
 https://prettier.io/
