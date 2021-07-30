@@ -20,6 +20,7 @@ jobs:
           --decrypt --passphrase="$GNU_PG_PASSPHRASE" --output $HOME/.env .env.gpg
       - name: list files after decrypt
         run: |
+          pwd
           ls -la
       - name: Dotenv Action
         uses: falti/dotenv-action@v0.2.6
