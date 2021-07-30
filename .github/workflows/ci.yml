@@ -15,10 +15,12 @@ jobs:
       - name: list files
         run: |
           ls -la
-          echo GNU_PG_PASSPHRASE is "$GNU_PG_PASSPHRASE"
       - name: Decrypt Secret File
         run: gpg --quiet --batch --yes 
           --decrypt --passphrase="$GNU_PG_PASSPHRASE" --output $HOME/.env .env.gpg
+      - name: list files after decrypt
+        run: |
+          ls -la
       - name: Dotenv Action
         uses: falti/dotenv-action@v0.2.6
       - name: Use NodeJS
