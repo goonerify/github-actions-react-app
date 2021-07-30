@@ -22,7 +22,8 @@ jobs:
         run: |
           pwd
           ls -la
-      - name: Dotenv Action
+      - id: dotenv
+        name: Dotenv Action
         uses: falti/dotenv-action@v0.2.6
       - name: Use NodeJS
         uses: actions/setup-node@v2.3.0
