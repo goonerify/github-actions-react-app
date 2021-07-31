@@ -57,9 +57,25 @@ jobs:
       - run: npm test -- --coverage
         env:
           CI: true
+      # Run this job after testing to ensure the coverage file has been created
+      - name: Upload Test Coverage
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          # Name of the file that will be available for download
+          name: code-coverage
+          path: coverage
       - name: Build Project
         if: github.event_name == 'push'
         run: npm run build
+      # Run this job after "Build Project" to ensure the build folder has been created
+      - name: Upload Build Folder
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          # Name of the file that will be available for download
+          name: build
+          path: build
+        # Download an artifact to your workspace
+      - uses: actions/download-artifact
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: |
