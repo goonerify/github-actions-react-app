@@ -75,6 +75,7 @@ jobs:
           # Name of the file that will be available for download
           name: my-build
           path: build
+      - name: List Directories
         run: |
           pwd
           ls -la
