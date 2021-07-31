@@ -10,10 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      # Env variables required by surge
-      SURGE_LOGIN: ${{ steps.dotenv.outputs.SURGE_LOGIN }}
-      SURGE_TOKEN: ${{ steps.dotenv.outputs.SURGE_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - name: Cache node_modules
@@ -116,9 +112,21 @@ jobs:
           npx surge --project ./build --domain $SURGE_DOMAIN
         env:
           SURGE_DOMAIN: ${{ steps.dotenv.outputs.SURGE_DOMAIN }}
+          # Env variables required by surge
+          SURGE_LOGIN: ${{ steps.dotenv.outputs.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ steps.dotenv.outputs.SURGE_TOKEN }}
       - name: Deploy to Production
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: |
           npx surge --project ./build --domain $SURGE_PROD_DOMAIN
         env:
           SURGE_PROD_DOMAIN: ${{ steps.dotenv.outputs.SURGE_PROD_DOMAIN }}
+          # Env variables required by surge
+          SURGE_LOGIN: ${{ steps.dotenv.outputs.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ steps.dotenv.outputs.SURGE_TOKEN }}
+      # Upload Coverage Report to the codecov app https://app.codecov.io/
+      - name: Upload Coverage Report
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: npx codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

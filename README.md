@@ -31,7 +31,7 @@ Create a boiler-plate react app
 
 3. Select the build folder as the one to "project" by appending it to the displayed path
 4. Accept the generated domain
-4. Paste the generated URL in a browser to view the hosted application running in a live surge server
+5. Paste the generated URL in a browser to view the hosted application running in a live surge server
 
 **Retrieve the generated URL**
 
@@ -72,11 +72,12 @@ Create a .prettierignore file
 `CI=true npm run test -- --coverage`
 
 ## **Encrypting & Decrypting Files**
+
 Install the command line utility [GnuPG](https://www.gnupg.org/) in order to encrypt secret files
 
 1. Create a GITHUB secret with a secure passphrase
 2. Encrypt the file using the secure passphrase
-`gpg --symmetric --cipher-algo AES256 <file to encrypt>`
+   `gpg --symmetric --cipher-algo AES256 <file to encrypt>`
 3. Use the passphrase to decrypt the secret file after checking it out in a github actions job
 
 <!-- # Getting Started with Create React App
