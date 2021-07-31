@@ -75,7 +75,7 @@ jobs:
           # Name of the file that will be available for download
           name: build
           path: build
-        # Download an artifact to your workspace
+      # Download an artifact to your workspace
       # - uses: actions/download-artifact
       - name: Deploy to Staging
         if: github.event_name == 'push'
