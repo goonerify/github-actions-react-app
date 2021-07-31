@@ -69,13 +69,19 @@ jobs:
         run: npm run build
       # Run this job after "Build Project" to ensure the build folder has been created
       - name: Upload Build Folder
+        if: github.event_name == 'push'
         uses: actions/upload-artifact@v2.2.4
         with:
           # Name of the file that will be available for download
-          name: build
+          name: my-build
           path: build
-        # Download an artifact to your workspace
-      # - uses: actions/download-artifact
+      
+      # Download an artifact to your workspace
+      # - uses: actions/download-artifact@v2.0.10
+      #   with:
+      #     name: my-artifact
+      # - name: Display structure of downloaded files
+      #   run: ls -R
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: |
