@@ -69,6 +69,7 @@ jobs:
         run: npm run build
       # Run this job after "Build Project" to ensure the build folder has been created
       - name: Upload Build Folder
+        if: github.event_name == 'push'
         uses: actions/upload-artifact@v2.2.4
         with:
           # Name of the file that will be available for download
