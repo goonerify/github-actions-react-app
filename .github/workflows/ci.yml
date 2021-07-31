@@ -9,9 +9,11 @@ on:
 
 jobs:
   build:
-    env:
-      GNU_PG_PASSPHRASE: ${{ secrets.GNU_PG_PASSPHRASE }}
     runs-on: ubuntu-latest
+    env:
+      # Env variables required by surge
+      SURGE_LOGIN: ${{ steps.dotenv.outputs.SURGE_LOGIN }}
+      SURGE_TOKEN: ${{ steps.dotenv.outputs.SURGE_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - name: Cache node_modules
@@ -41,6 +43,8 @@ jobs:
         run: |
           ls -la
       - name: Decrypt Secret File
+        env:
+          GNU_PG_PASSPHRASE: ${{ secrets.GNU_PG_PASSPHRASE }}
         run: gpg --quiet --batch --yes
           --decrypt --passphrase="$GNU_PG_PASSPHRASE" --output .env .env.gpg
       - name: list files after decrypt
@@ -104,13 +108,17 @@ jobs:
         # only create a release when pushing to the master branch
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       - name: Deploy to Staging
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: |
-          echo $SURGE_DOMAIN
-          echo $SURGE_LOGIN
-          echo $SURGE_TOKEN
+          # echo $SURGE_DOMAIN
+          # echo $SURGE_LOGIN
+          # echo $SURGE_TOKEN
           npx surge --project ./build --domain $SURGE_DOMAIN
         env:
           SURGE_DOMAIN: ${{ steps.dotenv.outputs.SURGE_DOMAIN }}
-          SURGE_LOGIN: ${{ steps.dotenv.outputs.SURGE_LOGIN }}
-          SURGE_TOKEN: ${{ steps.dotenv.outputs.SURGE_TOKEN }}
+      - name: Deploy to Production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: |
+          npx surge --project ./build --domain $SURGE_PROD_DOMAIN
+        env:
+          SURGE_PROD_DOMAIN: ${{ steps.dotenv.outputs.SURGE_PROD_DOMAIN }}
