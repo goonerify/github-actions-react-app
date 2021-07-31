@@ -1,3 +1,5 @@
+# TODO: Figure out why build artifacts are not uploaded to github
+# when deploying to the master branch
 name: CI
 on:
   pull_request:
@@ -89,6 +91,12 @@ jobs:
       #     name: my-artifact
       # - name: Display structure of downloaded files
       #   run: ls -R
+      - name: Zip Assets
+        # only zip assets when creating a release with semantic release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: |
+          zip -r build.zip ./build
+          zip -r coverage.zip ./coverage
       - name: Create a Release
         run: npx semantic-release
         env:

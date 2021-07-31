@@ -13,6 +13,26 @@ module.exports = {
     // "@semantic-release/npm",
     // This is responsible for creating the github release in the
     // github releases page
-    "@semantic-release/github"
+    [
+      "@semantic-release/github",
+      {
+        // Assets that should be available for download in the github
+        // releases page
+        assets: [
+          {
+            // Path to the file that should be downloadable
+            // The zip file will be compressed in our workflow
+            path: "build.zip",
+            label: "Build"
+          },
+          {
+            // Path to the file that should be downloadable
+            // The zip file will be compressed in our workflow
+            path: "coverage.zip",
+            label: "Coverage"
+          }
+        ]
+      }
+    ]
   ]
 };
