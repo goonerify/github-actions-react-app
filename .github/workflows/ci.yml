@@ -1,9 +1,9 @@
 name: CI
 on:
   pull_request:
-    branches: [develop]
+    branches: [develop, master]
   push:
-    branches: [develop]
+    branches: [develop, master]
 
 jobs:
   build:
@@ -89,6 +89,12 @@ jobs:
       #     name: my-artifact
       # - name: Display structure of downloaded files
       #   run: ls -R
+      - name: Create a Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # only create a release when pushing to the master branch
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: |
