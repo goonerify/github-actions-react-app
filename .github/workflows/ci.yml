@@ -25,12 +25,12 @@ jobs:
           # dependencies in the application have changed and the cached dependencies should be
           # updated
           # key: node-${{ hashFiles('**/package-lock.json') }}
-          # Generate a new cache when the operating system has changed since cached files are 
+          # Generate a new cache when the operating system has changed since cached files are
           # different for each operating system
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           # Github can use restore keys to find caches if it doesn't find cache hits using the main key
-          # This will happen in any new branch. Github can use the restore-key to find caches in other 
-          # branches that begins with the value of the restore key. Once the entire workflow is completed, 
+          # This will happen in any new branch. Github can use the restore-key to find caches in other
+          # branches that begins with the value of the restore key. Once the entire workflow is completed,
           # the new cache will be saved for the current branch. There can be multiple restore keys.
           # https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#matching-a-cache-key
           restore-key: |
