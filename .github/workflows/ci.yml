@@ -75,7 +75,6 @@ jobs:
           # Name of the file that will be available for download
           name: my-build
           path: build
-      
       # Download an artifact to your workspace
       # - uses: actions/download-artifact@v2.0.10
       #   with:
