@@ -12,6 +12,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          # The workflow will search for a cache that is saved under myKey in our caches
+          # If found, the cache will be used, otherwise a new key will be created to point
+          # to the cached files
+          # key: myKey
+          # Use the hash file function to hash all package-lock.json files in the application
+          # - if we have more than one. Changes to a package-lock.json file indicate that some
+          # dependencies in the application have changed and the cached dependencies should be
+          # updated
+          # key: node-${{ hashFiles('**/package-lock.json') }}
+          # Generate a new cache when the operating system has changed since cached files are 
+          # different for each operating system
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          # Github can use restore keys to find caches if it doesn't find cache hits using the main key
+          # This will happen in any new branch. Github can use the restore-key to find caches in other 
+          # branches that begins with the value of the restore key. Once the entire workflow is completed, 
+          # the new cache will be saved for the current branch. There can be multiple restore keys.
+          # https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#matching-a-cache-key
+          restore-key: |
+            ${{ runner.os }}-node-
       - name: list files
         run: |
           ls -la
