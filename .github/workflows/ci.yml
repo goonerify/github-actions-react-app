@@ -82,7 +82,8 @@ jobs:
           ls -la
           ls -la ~
           ls -la ./build
-      # Download an artifact to your workspace
+      
+      # Download previously uploaded artifacts to your workspace
       # - uses: actions/download-artifact@v2.0.10
       #   with:
       #     name: my-artifact
