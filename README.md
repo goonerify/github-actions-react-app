@@ -1,3 +1,5 @@
+![](https://github.com/goonerify/react-app/workflows/CI/badge.svg?branch=develop&event=push)
+
 # The Complete GitHub Actions & Workflows Guide
 
 This project is part of **Section 5: Creating a CI/CD Workflow to Automate Testing and Deployment**

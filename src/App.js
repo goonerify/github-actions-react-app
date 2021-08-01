@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Leslie's React Website
+          Leslie's React App
         </a>
       </header>
     </div>
