@@ -1,0 +1,13 @@
+name: Notify on Issue
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  slack-message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Message
+        # Get release tag name and url from the github context
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"New issue created ${{ github.event.issue.html_url }} is out, <${{ github.event.issue }}|check it out now.>"}' ${{ secrets.SLACK_WEBHOOK }}
