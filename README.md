@@ -61,11 +61,13 @@ Create a .prettierignore file
 
 ### **VALIDATE STYLE**
 
-`npx prettier --check "**/*.js"`
+`npm run format:check`
 
 ### **ENFORCE STYLE**
 
-`npx prettier --write "**/*.js"`
+`npm run format`
+
+\_NOTE: Husky has been configured with a pre-commit hook to run linters on staged files using [lint-staged](https://github.com/okonet/lint-staged). More info in the [prettier precommit notes](https://prettier.io/docs/en/precommit.html)
 
 ## **Run Tests for continuous integration**
 
@@ -79,6 +81,98 @@ Install the command line utility [GnuPG](https://www.gnupg.org/) in order to enc
 2. Encrypt the file using the secure passphrase
    `gpg --symmetric --cipher-algo AES256 <file to encrypt>`
 3. Use the passphrase to decrypt the secret file after checking it out in a github actions job
+
+## **Conventional Commits**
+
+### **[Commitlint](https://github.com/conventional-changelog/commitlint)**
+
+Checks if your commit messages meet the [conventional commit format](https://conventionalcommits.org/)
+
+#### Install
+
+`npm install --save-dev @commitlint/config-conventional @commitlint/cli`
+
+#### Configure commitlint to use conventional config
+
+`echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js`
+
+#### Lint commits before they are created using [Husky](https://github.com/typicode/husky)'s commit-msg hook
+
+##### Install Husky
+
+`npm install husky --save-dev`
+
+##### Activate hooks
+
+`npx husky install`
+
+##### Add hook
+
+`npx husky add .husky/commit-msg 'npx --no-install commitlint --edit "$1"'`
+
+In versions of husky < 7, you would instead add the hook:
+
+```
+"husky": {
+   "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+   }
+}
+```
+
+### **[Commitizen](https://github.com/commitizen/cz-cli)**
+
+When you commit with Commitizen, you'll be prompted to fill out any required commit fields at commit time
+
+#### Install
+
+Commitizen can be installed locally or globally.
+
+##### Local Installation
+
+1. Install locally to use an npm script for commits
+
+`npm install --save-dev commitizen`
+
+2. Add npm commit script
+   Add the following script to package.json to use the `npm run` command for commits.
+
+_NOTE: It seems the `npm run` script has a nicer, user friendly UI on windows_
+
+```
+  "scripts": {
+    "commit": "cz"
+  }
+```
+
+_NOTE: if you are using precommit hooks thanks to something like husky, you will need to name your script some thing other than "commit" (e.g. "cm": "cz"). The reason is because npm-scripts has a "feature" where it automatically runs scripts with the name prexxx where xxx is the name of another script. In essence, npm and husky will run "precommit" scripts twice if you name the script "commit", and the work around is to prevent the npm-triggered precommit script._
+
+##### Global Installation
+
+1. Install globally to use `git commit` command for commits
+
+`npm install commitizen -g`
+
+2. Add hook
+   _NOTE: To derive this hook, I simply replaced the name of the file to create and the command to create it in the `npx husky add` command for husky version 7.x_
+
+`npx husky add .husky/prepare-commit-msg 'exec < /dev/tty && git cz --hook || true'`
+
+In versions of husky < 7, you would instead add the hook:
+
+```
+"husky": {
+   "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+   }
+}
+```
+
+Finally, initialize your project to use the cz-conventional-changelog adapter
+
+`npx commitizen init cz-conventional-changelog --save-dev --save-exact`
+
+_NOTE: This adds a commitizen config to package.json_
 
 <!-- # Getting Started with Create React App
 
