@@ -183,7 +183,7 @@ _NOTE: This adds a commitizen config to package.json_
 1. While logged in to slack, navigate to the url https://api.slack.com/apps
 2. Click the Create New App button and select the "From Scratch" option
 3. Give the app a name and choose a workspace and click the create button
-4. In the Add Features and Functionality section, select Incoming Webhooks to post messages from external sources into slack
+4. In the Add Features and Functionality section, select "Incoming Webhooks" - to post messages from external sources into slack
 5. Turn "Activate Incoming Webhooks" on, scroll down to the bottom of the page and select "Add New Webhook to Workspace"
 6. Select the channel where the webhook can post messages
 7. Copy the URL from the "Webhook URLs for Your Workspace" section for use in a github workflow

@@ -8,6 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Slack Message
-        # Get release tag name and url from the github context
+        # Get release tag name and url from the github context. Issues web hook was saved as a repository secret
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"New issue created ${{ github.event.issue.html_url }} is out, <${{ github.event.issue }}|check it out now.>"}' ${{ secrets.SLACK_WEBHOOK }}
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"New issue created: <${{ github.event.issue.html_url }}|${{ github.event.issue.title}}.>"}' ${{ secrets.ISSUES_SLACK_WEBHOOK }}
