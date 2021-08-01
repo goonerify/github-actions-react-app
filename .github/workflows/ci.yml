@@ -100,7 +100,14 @@ jobs:
       - name: Create a Release
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # The default token "secrets.GITHUB_TOKEN" is used by the default github-actions user.
+          # The default github-actions user cannot trigger a workflow to run from within another
+          # workflow, therefore the release workflow will not be trigger when a new release it created
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use this custom token instead to ensure the release workflow is triggered. By using this
+          # custom token, the user that created the release will be my account instead of the default
+          # github-actions user
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
         # only create a release when pushing to the master branch
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       - name: Deploy to Staging

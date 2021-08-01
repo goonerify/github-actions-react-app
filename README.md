@@ -67,7 +67,9 @@ Create a .prettierignore file
 
 `npm run format`
 
-\_NOTE: Husky has been configured with a pre-commit hook to run linters on staged files using [lint-staged](https://github.com/okonet/lint-staged). More info in the [prettier precommit notes](https://prettier.io/docs/en/precommit.html)
+_NOTE: Husky has been configured with a pre-commit hook to run linters on staged files using [lint-staged](https://github.com/okonet/lint-staged). More info in the [prettier precommit notes](https://prettier.io/docs/en/precommit.html). You can run the following script instead of configuring this pre-commit hook manually in package.json_
+
+`npx husky add .husky/pre-commit 'npx lint-staged'`
 
 ## **Run Tests for continuous integration**
 
@@ -173,6 +175,18 @@ Finally, initialize your project to use the cz-conventional-changelog adapter
 `npx commitizen init cz-conventional-changelog --save-dev --save-exact`
 
 _NOTE: This adds a commitizen config to package.json_
+
+## **SLACK**
+
+### Add a new app to slack
+
+1. While logged in to slack, navigate to the url https://api.slack.com/apps
+2. Click the Create New App button and select the "From Scratch" option
+3. Give the app a name and choose a workspace and click the create button
+4. In the Add Features and Functionality section, select Incoming Webhooks to post messages from external sources into slack
+5. Turn "Activate Incoming Webhooks" on, scroll down to the bottom of the page and select "Add New Webhook to Workspace"
+6. Select the channel where the webhook can post messages
+7. Copy the URL from the "Webhook URLs for Your Workspace" section for use in a github workflow
 
 <!-- # Getting Started with Create React App
 
